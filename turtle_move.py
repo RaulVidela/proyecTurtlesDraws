@@ -65,50 +65,49 @@ def rotate(speed, angle, clockwise):
 
 def move_point_to_point(point_initial, point_end):
 
-
     position_initial_turtle(point_initial[0] , point_initial[1] ,  0)
 
     delta_x = point_end[0] - point_initial[0]
     delta_y = point_end[1] - point_initial[1]
 
-    print (point_initial)
-    print (point_end)
+    ##verification,
+    # if delta_x and delta_y value 0
+    # hypotenuse and angule value 0
     if((delta_y != 0) or (delta_x != 0)):
+        ##get distance between two points
         hypotenuse = math.sqrt(pow(delta_x,2)+pow(delta_y,2))
-
+        ##get angle in radians between two points
         angule = math.cos(delta_x/hypotenuse)
 
+        ##if is negative delta_x, so the angle calculated
+        # we must subtract it to PI = 180
         if(delta_x < 0):
             angule = PI - angule
 
+        ##if is or not negative delta_y, defines the direction of rotation
         if(delta_y > 0):
             clockwise = False
         else:
             clockwise = True
-
+        ##if the value of delta_y is 0, then the angle can be 0 or 180,
+        # depends on the value of delva_x
         if(delta_y == 0):
             if(delta_x > 0):
                 angule = 0
             else:
                 angule = PI
-
+        ##if the value of delta_x is 0, then the angle can be 90 or -90,
+        # depends on the value of delva_y
         if(delta_x == 0 ):
-            print("x == 0")
             if(delta_y > 0):
                 angule = PI/2
-                print("Y > 0")
             else:
                 angule = PI/2
                 clockwise = True
-                print("Y > 0")
     else:
         angule = 0
         hypotenuse = 0
-        clockwise = False
-        
-    print (clockwise)
-    print (angule)
-    print (hypotenuse)
+
     rotate(5,angule,clockwise)
     move_in_line_straight(5,hypotenuse)
 
@@ -122,9 +121,11 @@ def _move_with(relative_move, speed, vel_msg):
         t1 = rospy.Time.now().to_sec()
         current_move = (t1 - t0)*speed
 
+    ##stop the turtle
     vel_msg.linear.x = 0
     vel_msg.angular.z = 0
     velocity_publisher.publish(vel_msg)
+
 
 if __name__ == '__main__':
 

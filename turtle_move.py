@@ -1,14 +1,13 @@
 #!/usr/bin/env python
 
+import math
 import rospy
-
+import rosservice
 from geometry_msgs.msg import Twist
 
-import rosservice
 
 PI = 3.14
 velocity_publisher = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
-
 
 def init_vel_msg():
 
@@ -25,7 +24,7 @@ def init_vel_msg():
 
     return vel_msg
 
-def position_initla_turtle(x, y, theta):
+def position_initial_turtle(x, y, theta):
 
     rospy.wait_for_service("/turtle1/teleport_absolute")
     rospy.wait_for_service("/turtle1/set_pen")
@@ -39,24 +38,21 @@ def position_initla_turtle(x, y, theta):
 
     turtle_pen(255, 255, 255, 1, 0)
 
+
 def move_in_line_straight(speed, distance):
 
     vel_msg = init_vel_msg()
 
     vel_msg.linear.x = speed
 
-    _move_with(distance, speed, vel_msg)
+    _move_with(distance,speed, vel_msg)
 
 
 def rotate(speed, angle, clockwise):
 
-    rospy.init_node('turtle_draw', anonymous=True)
-    velocity_publisher = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
-
     vel_msg = init_vel_msg()
     # Converting from angles to radians
     angular_speed = speed * 2 * PI / 360
-    relative_angle = angle * 2 * PI / 360
 
     # Checking if our movement is CW or CCW
     if clockwise:
@@ -64,12 +60,60 @@ def rotate(speed, angle, clockwise):
     else:
         vel_msg.angular.z = abs(angular_speed)
 
-    _move_with(relative_angle, angular_speed, vel_msg)
+    _move_with(angle, angular_speed, vel_msg)
 
+
+def move_point_to_point(point_initial, point_end):
+
+
+    position_initial_turtle(point_initial[0] , point_initial[1] ,  0)
+
+    delta_x = point_end[0] - point_initial[0]
+    delta_y = point_end[1] - point_initial[1]
+
+    print (point_initial)
+    print (point_end)
+    if((delta_y != 0) or (delta_x != 0)):
+        hypotenuse = math.sqrt(pow(delta_x,2)+pow(delta_y,2))
+
+        angule = math.cos(delta_x/hypotenuse)
+
+        if(delta_x < 0):
+            angule = PI - angule
+
+        if(delta_y > 0):
+            clockwise = False
+        else:
+            clockwise = True
+
+        if(delta_y == 0):
+            if(delta_x > 0):
+                angule = 0
+            else:
+                angule = PI
+
+        if(delta_x == 0 ):
+            print("x == 0")
+            if(delta_y > 0):
+                angule = PI/2
+                print("Y > 0")
+            else:
+                angule = PI/2
+                clockwise = True
+                print("Y > 0")
+    else:
+        angule = 0
+        hypotenuse = 0
+        clockwise = False
+        
+    print (clockwise)
+    print (angule)
+    print (hypotenuse)
+    rotate(5,angule,clockwise)
+    move_in_line_straight(5,hypotenuse)
 
 def _move_with(relative_move, speed, vel_msg):
 
-    # Setting the current time for distance calculus
     t0 = rospy.Time.now().to_sec()
     current_move = 0
 
@@ -81,3 +125,16 @@ def _move_with(relative_move, speed, vel_msg):
     vel_msg.linear.x = 0
     vel_msg.angular.z = 0
     velocity_publisher.publish(vel_msg)
+
+if __name__ == '__main__':
+
+    move_point_to_point([2,2],[6,6])
+    move_point_to_point([6,6],[4,6])
+
+    move_point_to_point([4,6],[4,6])
+
+    move_point_to_point([4,6],[4,8])
+    move_point_to_point([4,6],[4,4])
+
+    move_point_to_point([4,4],[2,4])
+    move_point_to_point([4,4],[6,4])

@@ -82,14 +82,15 @@ def star(center, spikes,min_r,max_r):
 
         colection_point = []
 
-        angle = 360 / spikes
+        angle = 360 / (spikes*2)
 
         print (angle)
         ## averiguar el segundo punto
 
         angle_of_rotation = 0
 
-        for z in range(spikes):
+        long = spikes * 2
+        for z in range(long):
 
             if(angle_of_rotation <= 90):
                 print (" angle_of_rotation <= 90 "+str(angle_of_rotation))
@@ -112,13 +113,15 @@ def star(center, spikes,min_r,max_r):
                 quadrant = 4
                 print (angle_calculate)
 
+            if(z%2 == 0):
+                delta_x = abs(math.sin(angle_calculate * PI / 180) * max_r)
+                delta_y = abs(math.cos(angle_calculate * PI / 180) * max_r)
+            else:
+                delta_x = abs(math.sin(angle_calculate * PI / 180) * min_r)
+                delta_y = abs(math.cos(angle_calculate * PI / 180) * min_r)
 
-            print ("seno :   " +str(numpy.sin(numpy.deg2rad(angle_calculate))))
-            print ("coseno : " +str(numpy.cos(angle_calculate*PI/180)))
-            delta_x =abs(math.sin(angle_calculate*PI/180) * min_r)
-            delta_y =abs(math.cos(angle_calculate*PI/180) * min_r)
-            print ("delta x "+str(delta_x))
-            print ("delta y "+str(delta_y))
+
+
 
             if(quadrant == 1):
                 print ("cuadrante 1")
@@ -167,9 +170,10 @@ def draw_figure(colection_of_points):
 if __name__ == '__main__':
 
     print ("INICIO")
-    star([5,5],3,3,4)
-    star([5,5],4,3,4)
-    star([5,5],6,3,4)
+    #star([5,5],3,2,4)
+    #star([5,5],4,2,4)
+    #star([5,5],5,2,4)
+    star([5,5],6,2,4)
     print ("FIN")
 
     #        try:

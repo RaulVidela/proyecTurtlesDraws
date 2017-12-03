@@ -2,6 +2,9 @@
 
 import math
 import turtle_move
+import numpy
+
+PI = 3.141592
 
 def square(center, length):
 
@@ -73,8 +76,79 @@ def polygon(center, colection_points):
 
     draw_figure(points_moved)
 
-def star():
-    print ("hola")
+def star(center, spikes,min_r,max_r):
+
+    if(spikes > 2):
+
+        colection_point = []
+
+        angle = 360 / spikes
+
+        print (angle)
+        ## averiguar el segundo punto
+
+        angle_of_rotation = 0
+
+        for z in range(spikes):
+
+            if(angle_of_rotation <= 90):
+                print (" angle_of_rotation <= 90 "+str(angle_of_rotation))
+                angle_calculate = angle_of_rotation
+                print (angle_calculate)
+                quadrant = 1
+            elif ((angle_of_rotation > 90) and (angle_of_rotation <= 180)):
+                print (" angle_of_rotation > 90 and angle_of_rotation <= 180 "+str(angle_of_rotation))
+                angle_calculate = 180 - angle_of_rotation
+                quadrant = 2
+                print (angle_calculate)
+            elif((angle_of_rotation > 180) and (angle_of_rotation <= 270)):
+                print (" angle_of_rotation > 180 and angle_of_rotation <= 270 "+str(angle_of_rotation))
+                angle_calculate = angle_of_rotation - 180
+                quadrant = 3
+                print (angle_calculate)
+            else:
+                print (" else : "+str(angle_of_rotation))
+                angle_calculate = 360 - angle_of_rotation
+                quadrant = 4
+                print (angle_calculate)
+
+
+            print ("seno :   " +str(numpy.sin(numpy.deg2rad(angle_calculate))))
+            print ("coseno : " +str(numpy.cos(angle_calculate*PI/180)))
+            delta_x =abs(math.sin(angle_calculate*PI/180) * min_r)
+            delta_y =abs(math.cos(angle_calculate*PI/180) * min_r)
+            print ("delta x "+str(delta_x))
+            print ("delta y "+str(delta_y))
+
+            if(quadrant == 1):
+                print ("cuadrante 1")
+                x = center[0] + delta_x
+                y = center[1] + delta_y
+            elif (quadrant == 2):
+                print ("cuadrante 2")
+                x = center[0] + delta_x
+                y = center[1] - delta_y
+            elif(quadrant == 3):
+                print ("cuadrante 3")
+                x = center[0] - delta_x
+                y = center[1] - delta_y
+            elif(quadrant == 4):
+                print ("cuadrante 4")
+                x = center[0] - delta_x
+                y = center[1] + delta_y
+
+            print ("x : "+str(x) + "--  y : "+str(y))
+            colection_point.append([x,y])
+            print (colection_point)
+
+            angle_of_rotation += angle
+
+
+        draw_figure(colection_point)
+
+
+    else:
+        print("insufficient number of spikes")
 
 def draw_figure(colection_of_points):
 
@@ -93,7 +167,9 @@ def draw_figure(colection_of_points):
 if __name__ == '__main__':
 
     print ("INICIO")
-    polygon([6,6],[[2,2],[2,-2],[0,-3],[-2,0],[0,2]])
+    star([5,5],3,3,4)
+    star([5,5],4,3,4)
+    star([5,5],6,3,4)
     print ("FIN")
 
     #        try:

@@ -2,7 +2,6 @@
 
 import math
 import turtle_move
-import numpy
 
 PI = 3.141592
 
@@ -32,7 +31,7 @@ def square(center, length):
     colection_points.append(point_2)
     colection_points.append(point_3)
     colection_points.append(point_4)
-    print (colection_points)
+
     draw_figure(colection_points)
 
 def triangle(center, length):
@@ -67,51 +66,36 @@ def polygon(center, colection_points):
     for x in range(size):
 
         point = colection_points[x]
-        print ("punto : "+str(point))
         x = point[0] + center[0]
         y = point[1] + center[1]
 
         points_moved.insert(x,[x,y])
-        print("coleccion : " + str(points_moved))
 
     draw_figure(points_moved)
 
-def star(center, spikes,min_r,max_r):
+def star(center, spikes ,min_r,max_r):
 
     if(spikes > 2):
 
         colection_point = []
-
         angle = 360 / (spikes*2)
-
-        print (angle)
-        ## averiguar el segundo punto
-
         angle_of_rotation = 0
+        number_of_point = spikes * 2
 
-        long = spikes * 2
-        for z in range(long):
+        for z in range(number_of_point):
 
             if(angle_of_rotation <= 90):
-                print (" angle_of_rotation <= 90 "+str(angle_of_rotation))
                 angle_calculate = angle_of_rotation
-                print (angle_calculate)
                 quadrant = 1
             elif ((angle_of_rotation > 90) and (angle_of_rotation <= 180)):
-                print (" angle_of_rotation > 90 and angle_of_rotation <= 180 "+str(angle_of_rotation))
                 angle_calculate = 180 - angle_of_rotation
                 quadrant = 2
-                print (angle_calculate)
             elif((angle_of_rotation > 180) and (angle_of_rotation <= 270)):
-                print (" angle_of_rotation > 180 and angle_of_rotation <= 270 "+str(angle_of_rotation))
                 angle_calculate = angle_of_rotation - 180
                 quadrant = 3
-                print (angle_calculate)
             else:
-                print (" else : "+str(angle_of_rotation))
                 angle_calculate = 360 - angle_of_rotation
                 quadrant = 4
-                print (angle_calculate)
 
             if(z%2 == 0):
                 delta_x = abs(math.sin(angle_calculate * PI / 180) * max_r)
@@ -124,26 +108,19 @@ def star(center, spikes,min_r,max_r):
 
 
             if(quadrant == 1):
-                print ("cuadrante 1")
                 x = center[0] + delta_x
                 y = center[1] + delta_y
             elif (quadrant == 2):
-                print ("cuadrante 2")
                 x = center[0] + delta_x
                 y = center[1] - delta_y
             elif(quadrant == 3):
-                print ("cuadrante 3")
                 x = center[0] - delta_x
                 y = center[1] - delta_y
             elif(quadrant == 4):
-                print ("cuadrante 4")
                 x = center[0] - delta_x
                 y = center[1] + delta_y
 
-            print ("x : "+str(x) + "--  y : "+str(y))
             colection_point.append([x,y])
-            print (colection_point)
-
             angle_of_rotation += angle
 
 
@@ -173,10 +150,5 @@ if __name__ == '__main__':
     #star([5,5],3,2,4)
     #star([5,5],4,2,4)
     #star([5,5],5,2,4)
-    star([5,5],6,2,4)
+    #star([5,5],6,2,4)
     print ("FIN")
-
-    #        try:
-    #
-    #        except rospy.ROSInterruptException:
-    #            pass

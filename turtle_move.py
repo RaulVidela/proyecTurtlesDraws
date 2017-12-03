@@ -6,7 +6,7 @@ import rosservice
 from geometry_msgs.msg import Twist
 
 
-PI = 3.14
+PI = 3.141592
 velocity_publisher = rospy.Publisher('/turtle1/cmd_vel', Twist, queue_size=10)
 
 def init_vel_msg():
@@ -72,43 +72,44 @@ def move_point_to_point(point_initial, point_end):
 
     ##verification,
     # if delta_x and delta_y value 0
-    # hypotenuse and angule value 0
+    # hypotenuse and angle value 0
     if((delta_y != 0) or (delta_x != 0)):
-        ##get distance between two points
-        hypotenuse = math.sqrt(pow(delta_x,2)+pow(delta_y,2))
-        ##get angle in radians between two points
-        angule = math.cos(delta_x/hypotenuse)
 
-        ##if is negative delta_x, so the angle calculated
-        # we must subtract it to PI = 180
-        if(delta_x < 0):
-            angule = PI - angule
+        ##get distance between two points
+        hypotenuse = float(math.sqrt(pow(delta_x,2)+pow(delta_y,2)))
+        ##get angle between two points
+        angle = math.degrees(math.acos(delta_x/hypotenuse))
+
 
         ##if is or not negative delta_y, defines the direction of rotation
         if(delta_y > 0):
             clockwise = False
         else:
             clockwise = True
+
+        ##if the value of delta_x is 0, then the angle is 90,
+        if(delta_x == 0 ):
+            angle = 90
+
         ##if the value of delta_y is 0, then the angle can be 0 or 180,
         # depends on the value of delva_x
         if(delta_y == 0):
+            clockwise = True
             if(delta_x > 0):
-                angule = 0
+                angle = 0
             else:
-                angule = PI
-        ##if the value of delta_x is 0, then the angle can be 90 or -90,
-        # depends on the value of delva_y
-        if(delta_x == 0 ):
-            if(delta_y > 0):
-                angule = PI/2
-            else:
-                angule = PI/2
-                clockwise = True
+                angle = 180
     else:
-        angule = 0
+        ##in the case that the value of delta_x and delta_y is 0
+        # then the values of angle and hyponuse are 0
+        angle = 0
         hypotenuse = 0
+        clockwise = True
 
-    rotate(5,angule,clockwise)
+    ##converting the angle from sexagesimal to radians
+    angle = angle * PI / 180
+
+    rotate(5,angle,clockwise)
     move_in_line_straight(5,hypotenuse)
 
 def _move_with(relative_move, speed, vel_msg):

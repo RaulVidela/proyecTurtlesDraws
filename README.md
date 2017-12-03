@@ -4,8 +4,8 @@ ROS node that causes the turtles to draw a figure on the screen the turtlesim.
 
 ### Installing
 
-follow the steps on the page for "install ROS Kinetic", "Initialize rosdep" and "Environment setup"
-    
+follow the steps on the page for "install ROS Kinetic", "Initialize rosdep", "Environment setup"
+and " Create a ROS Workspace" with catkin     
 ```
     http://wiki.ros.org/kinetic/Installation
 ```
@@ -27,7 +27,7 @@ clone the repositori in the directory "~/catkin_ws/src/"
 ```
     cd src/
     
-    git clone git@github.com:RaulVidela/proyecTurtlesDraws.git
+    git clone https://github.com/RaulVidela/proyecTurtlesDraws.git
 ```
 
 go to the directory "~/catkin_ws/" 
@@ -42,10 +42,10 @@ run again in the directory "~/catkin_ws/"
     catkin_make
 ```
 
-go to the "src" directory inside the "turlte_drsw" folder
+go to the "proyecTurtlesDraws" directory inside the "src" folder
 
 ```
-    cd ~/catkin_ws/src/turtle_draw/src/
+    cd ~/catkin_ws/src/proyecTurtlesDraws
 ```
 
 give executable permissions to the files
@@ -57,7 +57,7 @@ give executable permissions to the files
 
 ## Running the program
 
-run the main.py file, which is in the directory "~/catkin_ws/src/turtle_draw/src/"
+run the main.py file, which is in the directory "~/catkin_ws/src/proyecTurtlesDraws"
 
 ```
     ./main.py

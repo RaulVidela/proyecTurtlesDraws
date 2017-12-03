@@ -45,7 +45,7 @@ catkin_make
 go to the "src" directory inside the "turlte_drsw" folder
 
 ```
-    cd turtle_draw/src/
+    cd ~/catkin_ws/src/turtle_draw/src/
 ```
 
 give executable permissions to the files

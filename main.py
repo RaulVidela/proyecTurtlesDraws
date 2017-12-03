@@ -55,8 +55,11 @@ def date_of_the_star():
     center = input_center()
 
     #spikes
-    print(" input the number of spikes ")
+    print(" input the number of spikes, minimum 3 ")
     spikes = input("spikes : ")
+    while(spikes < 2):
+        print(" number of spikes invalid")
+        spikes = input("spikes : ")
     # min_r
     print(" input the small radio ")
     min_r = input("minimum radio : ")

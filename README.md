@@ -7,19 +7,19 @@ ROS node that causes the turtles to draw a figure on the screen the turtlesim.
 follow the steps on the page for "install ROS Kinetic", "Initialize rosdep" and "Environment setup"
     
 ```
-      http://wiki.ros.org/kinetic/Installation
+    http://wiki.ros.org/kinetic/Installation
 ```
 
 open a console and write
 
 ```
-cd catkin_ws/
+    cd catkin_ws/
 ```
 
 run in the directory "~/catkin_ws/"
 
 ```
-catkin_make
+    catkin_make
 ```
 
 clone the repositori in the directory "~/catkin_ws/src/"
@@ -39,7 +39,7 @@ go to the directory "~/catkin_ws/"
 run again in the directory "~/catkin_ws/"
 
 ```
-catkin_make
+    catkin_make
 ```
 
 go to the "src" directory inside the "turlte_drsw" folder

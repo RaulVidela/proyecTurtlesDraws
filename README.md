@@ -16,7 +16,7 @@ open a console and write
 cd catkin_ws/
 ```
 
-run
+run in the directory "~/catkin_ws/"
 
 ```
 catkin_make
@@ -30,10 +30,16 @@ clone the repositori in the directory "~/catkin_ws/src/"
     git clone git@github.com:RaulVidela/proyecTurtlesDraws.git
 ```
 
-run again
+go to the directory "~/catkin_ws/" 
 
 ```
-    catkin_make
+    cd ..
+```
+
+run again in the directory "~/catkin_ws/"
+
+```
+catkin_make
 ```
 
 go to the "src" directory inside the "turlte_drsw" folder

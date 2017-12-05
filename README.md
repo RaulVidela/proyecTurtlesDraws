@@ -57,7 +57,18 @@ give executable permissions to the files
 
 ## Running the program
 
-run the main.py file, which is in the directory "~/catkin_ws/src/proyecTurtlesDraws"
+
+open a console and run
+
+```
+    roscore
+``` 
+open another console and run.
+
+```
+    rosrun turtlesim turtlesim_node
+``` 
+run the main.py file from console, which is in the directory "~/catkin_ws/src/proyecTurtlesDraws"
 
 ```
     ./main.py
